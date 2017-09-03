@@ -18,12 +18,12 @@ HMM是一个五元组(O，Q，O0 ，A，B) ：
 观察序列是给定的字序列，隐藏状态是每个字对应的词性标注。
 初始概率就是直接统计语料的词频
 标记间的状态Tj→Ti转移概率可以通过如下公式求出：<br />　　　
-　　 ![转移概率](https://github.com/gugug/Hmm-NERTagger/blob/master/Screenshots/transtition.png)<br />
-	例：习/4 近/5 平/6  P（5|4）=C（4，5）/C（4）
+![转移概率](https://github.com/gugug/Hmm-NERTagger/blob/master/Screenshots/transtition.png)<br />
+例：习/4 近/5 平/6  P（5|4）=C（4，5）/C（4）
 而每个状态（标记）随对应的符号（单字）的发射概率可由下式求出：<br/>
- ![发射概率](https://github.com/gugug/Hmm-NERTagger/blob/master/Screenshots/emission.png)<br />
-	例：P（习|4）=C（习，4）/C（4）
-其中符号C代表的是其括号内因子在语料库中的计数。
+![发射概率](https://github.com/gugug/Hmm-NERTagger/blob/master/Screenshots/emission.png)<br />
+例：P（习|4）=C（习，4）/C（4）<br />
+** 其中符号C代表的是其括号内因子在语料库中的计数。**
 
 维特比算法就是求解HMM上的最短路径，也即是最大概率的算法<br />
- ![维特比](https://github.com/gugug/Hmm-NERTagger/blob/master/Screenshots/viterbi.png)<br />
+![维特比](https://github.com/gugug/Hmm-NERTagger/blob/master/Screenshots/viterbi.png)<br />
