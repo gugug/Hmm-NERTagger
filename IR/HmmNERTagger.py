@@ -56,7 +56,7 @@ def viterbi(obs, states, start_p, trans_p, emit_p):
         # 不需要保留旧路径
         path = newpath
 
-    print_dptable(V)
+    # print_dptable(V)
     (prob, state) = max([(V[len(obs) - 1][y], y) for y in states])
     return (prob, path[state])
 
@@ -100,7 +100,7 @@ if __name__ == '__main__':
     nz其他专名101112
     """
 
-    # sentence = u'在天津，一家科技小巨人企业为近5万家企业提供云计算服务。'
+    sentence = u'在天津，一家科技小巨人企业为近5万家企业提供云计算服务。'
 
     while True:
         sentence = raw_input("请输入句子：")
