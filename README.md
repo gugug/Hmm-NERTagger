@@ -46,15 +46,38 @@ f为非实体词语， rn为人名， zn为机构团体
 ### 转移概率
 标记间的状态Tj→Ti转移概率可以通过如下公式求出:  
 ![转移概率计算公式](https://github.com/gugug/Hmm-NERTagger/blob/master/Screenshots/transtition.png)  
-例：习/4 近/5 平/6  P（5|4）=C（4，5）/C（4）
+例：习/4 近/5 平/6  
+P（5|4）=C（4，5）/C（4）计算的结果表示词性4转移到词性5的概率。  
+计算结果保存在：[IR/documents8-2/transition_probability.txt](https://github.com/gugug/Hmm-NERTagger/blob/master/IR/documents8-2/transition_probability.txt)  
 
 ### 发射概率
 每个状态（标记）随对应的符号（单字）的发射概率可由下式求出:  
 ![发射概率计算公式](https://github.com/gugug/Hmm-NERTagger/blob/master/Screenshots/emission.png)  
-例：P（习|4）=C（习，4）/C（4）
+例：习/4 近/5 平/6  
+P（习|4）=C（习，4）/C（4）计算结果表示4发射到"习"这个字的概率
+计算结果保存在：[IR/documents8-2/emission_probability.txt](https://github.com/gugug/Hmm-NERTagger/blob/master/IR/documents8-2/emission_probability.txt)  
 
 **其中符号C代表的是其括号内因子在语料库中的计数**
+
+## 发射概率的时候需要初始化为0
+```python
+   def init_probility(self):
+        """
+        初始化转移概率 发射概率的值为0
+        :return:
+        """
+        words = self.load_words()
+        for state0 in self.get_states():
+            for state1 in self.get_states():
+                self.transition_probability[state0][state1] = 0
+            for word in words:
+                self.emission_probability[state0][word] = 0
+```
+初始化他们的概率为0，其他发射概率的初始化需要对应着每个字，所以需要分割出一个一个字出来。这个提取是直接把预料中的字提取出来。  
+字都保存在[IR/documents8-2/words.txt](https://github.com/gugug/Hmm-NERTagger/blob/master/IR/documents8-2/words.txt)  
 
 ## 进行维特比解码找最优路径
 维特比算法就是求解HMM上的最短路径，也即是最大概率的算法  
 ![维特比](https://github.com/gugug/Hmm-NERTagger/blob/master/Screenshots/viterbi.png)  
+
+## 试验中使用了nltk的工具来统计
