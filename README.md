@@ -16,7 +16,10 @@ HMM是一个五元组(O，Q，O0 ，A，B) ：
 是不是有点不理解这个怎么来的呢？？？不急，往下看。
 
 ## 人民日报的语料长啥样子？？
-下面是个例子:  
+```
+	记者/nnt 从/p 公安部/nto 了解到/v ，/w 日前/t ，/w 网络/n 曝光/vi 的/ude1 内蒙古自治区/ns [乌海市/ns 乌达/ns]/nz [消防/b 二/m 中队/nis]/nto 打/v 新兵/n 事件/n ，/w 在/p 公安部/nto 的/ude1 高度/d 重视/v 下/f ，/w 已/d 得到/v 依法/d 依/v 纪/ng [严肃/a 处理/vn]/nz ，/w [8/m 名/q]/mq 打/v 人/n 者/k 被/pbei 依法/d 刑/n 拘/vg ，/w [16/m 名/q]/mq 责任人/nnt 被/pbei 依/v 纪/ng 追责/nz 。/w 
+```
+下面是个简单的解释例子:  
 f为非实体词语， rn为人名， zn为机构团体  
 新年前夕/f ，/f 国家主席/f 习近平/rn 通过/f 中国国际广播电台/zn 、/f 中央人民广播电台/zn 、/f 中央电视台/zn  
 ## 数据预处理
@@ -54,7 +57,7 @@ P（5|4）=C（4，5）/C（4）计算的结果表示词性4转移到词性5的�
 每个状态（标记）随对应的符号（单字）的发射概率可由下式求出:  
 ![发射概率计算公式](https://github.com/gugug/Hmm-NERTagger/blob/master/Screenshots/emission.png)  
 例：习/4 近/5 平/6  
-P（习|4）=C（习，4）/C（4）计算结果表示4发射到"习"这个字的概率
+P（习|4）=C（习，4）/C（4）计算结果表示4发射到"习"这个字的概率  
 计算结果保存在：[IR/documents8-2/emission_probability.txt](https://github.com/gugug/Hmm-NERTagger/blob/master/IR/documents8-2/emission_probability.txt)  
 
 **其中符号C代表的是其括号内因子在语料库中的计数**
@@ -73,8 +76,8 @@ P（习|4）=C（习，4）/C（4）计算结果表示4发射到"习"这个字�
             for word in words:
                 self.emission_probability[state0][word] = 0
 ```
-初始化他们的概率为0，其他发射概率的初始化需要对应着每个字，所以需要分割出一个一个字出来。这个提取是直接把预料中的字提取出来。  
-字都保存在[IR/documents8-2/words.txt](https://github.com/gugug/Hmm-NERTagger/blob/master/IR/documents8-2/words.txt)  
+初始化他们的概率为0，其他发射概率的初始化需要对应着每个字，所以需要分割出一个一个字出来。这个提取是直接把语料中的字提取出来。  
+我把字都保存在[IR/documents8-2/words.txt](https://github.com/gugug/Hmm-NERTagger/blob/master/IR/documents8-2/words.txt)  
 
 ## 进行维特比解码找最优路径
 维特比算法就是求解HMM上的最短路径，也即是最大概率的算法  
